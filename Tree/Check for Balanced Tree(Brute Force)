@@ -1,0 +1,36 @@
+## Here we used the brute force solution for this problem statement 
+
+class Solution{
+    public:
+    int height(struct Node* node){
+        // code here 
+        if(node == NULL){
+            return 0;
+        }
+        
+        int left = height(node -> left);
+        int right = height(node -> right);
+        
+        int ans = max(left,right) + 1;
+        return ans;
+    }
+    bool isBalanced(Node *root)
+    {
+        //  Your Code here
+        if(root == NULL){
+            return true;
+        }
+        
+        int left = isBalanced(root -> left);
+        int right = isBalanced(root -> right);
+        
+        int diff = abs(height(root -> left) - height(root -> right)) <= 1;              ## This is the main formula for solving this problem 
+        
+        if(left && right && diff){                               ## if all condition is true the we will return true else we will return false
+            return 1;
+        }
+        else{
+            return false;
+        }
+    }
+};
