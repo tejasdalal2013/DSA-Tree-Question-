@@ -1,0 +1,51 @@
+## Vertical Traversal of Binary Tree
+
+Logic - 
+
+1) Here we will do horizonatl distance mapping by level wise 
+2) Here the question is full based on mapping and mapping everwhere 
+
+Code -> 
+
+class Solution
+{
+    public:
+    //Function to find the vertical order traversal of Binary Tree.
+    vector<int> verticalOrder(Node *root)
+    {
+        //Your code here
+        map<int, map<int,vector<int> > > nodes;
+        queue<pair<Node*,pair<int,int>>> q;
+        vector<int> ans;
+        
+        if(root == NULL)
+            return ans;
+        
+        q.push(make_pair(root,make_pair(0,0)));
+        
+        while(!q.empty()){
+            pair<Node*,pair<int,int>> temp = q.front();
+            q.pop();
+            
+            Node* frontNode = temp.first;
+            int hd = temp.second.first;
+            int lv1 = temp.second.first;
+            
+            nodes[hd][lv1].push_back(frontNode -> data);
+            
+            if(frontNode -> left)
+                q.push(make_pair(frontNode -> left, make_pair(hd-1,lv1+1)));
+                
+            if(frontNode -> right)
+                q.push(make_pair(frontNode -> right, make_pair(hd+1,lv1+1)));
+        }
+        for(auto i : nodes){
+            for(auto j : i.second){
+                for(auto k:j.second){
+                    ans.push_back(k);
+                }
+            }
+        }
+        return ans;
+    }
+};
