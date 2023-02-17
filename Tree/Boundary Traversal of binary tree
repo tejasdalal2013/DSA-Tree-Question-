@@ -1,0 +1,66 @@
+## Boundary Traversal of binary tree 
+
+How Algorithm Works - 
+
+1) Print left part but exculsive the leaf node 
+2) Print Leaft Node (left -> right)
+3) Print Right Node but exculsive the leaf node and the reverse the right part 
+
+Code - 
+
+class Solution {
+public:
+    
+    void traversalLeft(Node* root, vector<int> &ans){
+        
+        // Base case
+        if( (root == NULL ) || (root -> left == NULL && root -> right == NULL) )
+            return;
+        ans.push_back(root-> data);
+        if(root -> left)
+            traversalLeft(root -> left, ans);
+        else
+            traversalLeft(root -> right, ans);
+    }
+    
+    void traversalLeaf(Node* root, vector<int> &ans){
+        
+        if(root == NULL)
+            return;
+        if(root -> left == NULL && root -> right == NULL){
+            ans.push_back(root -> data);
+            return;
+        }
+        traversalLeaf(root->left,ans);
+        traversalLeaf(root->right,ans);
+    }
+    
+    void traversalright(Node* root, vector<int> &ans){
+        
+        if((root == NULL) || (root -> left == NULL && root -> right == NULL))
+            return ;
+        
+        if(root -> right)
+            traversalright(root -> right, ans);
+        else
+            traversalright(root -> left, ans);
+            
+        ans.push_back(root -> data);
+    }
+    
+    
+    vector <int> boundary(Node *root)
+    {
+        vector<int> ans;
+        if(root == NULL)
+            return ans;
+        ans.push_back(root -> data);
+        
+        traversalLeft(root -> left, ans);
+        traversalLeaf(root -> left, ans);
+        traversalLeaf(root -> right, ans);
+        traversalright(root -> right, ans);
+        
+        return ans;
+    }
+};
