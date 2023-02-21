@@ -1,0 +1,20 @@
+## Here is Optimzed Soloution for this problem 
+
+
+void solve(Node* root, vector<int> &ans, int level){
+    if(root == NULL){
+        return;
+    }
+    if(level == ans.size())
+        ans.push_back(root -> data);                    ## First we print the data 
+    solve(root -> left, ans, level+1);                  ## Then we move to left
+    solve(root -> right, ans, level +1 );               ## Then we move to the right 
+}
+
+vector<int> leftView(Node *root)
+{
+   // Your code here
+   vector<int> ans;
+   solve(root,ans,0);
+   return ans;
+}
